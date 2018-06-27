@@ -24,9 +24,7 @@ export class MyApp {
   ngOnInit(){
    this._tokenService.init({
      apiBase: 'http://localhost:3000/api',
-     oAuthPaths: {
-                facebook: '/auth/facebook'
-            }
+     oAuthBase: 'http://localhost:3000/api'
    });
 
    this.initializeApp();
@@ -56,7 +54,7 @@ export class MyApp {
 
   login() {
     this._tokenService.signInOAuth(
-    'github'
+    'facebook'
     ).subscribe(
           res =>      console.log(res),
           error =>    console.log(error)
