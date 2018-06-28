@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Angular2TokenService } from 'angular2-token';
+import { Angular2TokenService } from 'angular2-token-ionic3';
 
 import { HomePage } from '../pages/home/home';
 
@@ -14,25 +14,26 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform,
-              public statusBar: StatusBar,
-              public splashScreen: SplashScreen,
-              private _tokenService: Angular2TokenService
-  ) {}
-  ngOnInit(){
-   this._tokenService.init({
-     apiBase: 'http://localhost:3000/api',
-     oAuthBase: 'http://localhost:3000/api'
-   });
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    private _tokenService: Angular2TokenService
+  ) { }
+  ngOnInit() {
+    this._tokenService.init({
+      apiBase: 'http://localhost:3000/api',
+      oAuthBase: 'http://localhost:3000/api/',
+      oAuthWindowType: 'newWindow'
+    });
 
-   this.initializeApp();
+    this.initializeApp();
 
-   // used for an example of ngFor and navigation
-   this.pages = [
-     { title: 'Home', component: HomePage }
-   ];
+    // used for an example of ngFor and navigation
+    this.pages = [
+      { title: 'Home', component: HomePage }
+    ];
 
   }
 
@@ -52,12 +53,12 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 
-  login() {
+  login(provider) {
     this._tokenService.signInOAuth(
-    'facebook'
+      provider
     ).subscribe(
-          res =>      console.log(res),
-          error =>    console.log(error)
+      res => console.log(res),
+      error => console.log(error)
     );
   }
 }
