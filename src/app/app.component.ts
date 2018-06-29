@@ -60,5 +60,6 @@ export class MyApp {
       res => console.log(res),
       error => console.log(error)
     );
+    this._tokenService.processOAuthCallback();
   }
 }

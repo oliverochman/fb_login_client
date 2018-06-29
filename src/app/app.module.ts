@@ -3,7 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Angular2TokenService } from 'angular2-token-ionic3';
 import { HttpModule } from '@angular/http/';
-
+import { RouterModule } from '@angular/router';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -23,7 +23,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    RouterModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
