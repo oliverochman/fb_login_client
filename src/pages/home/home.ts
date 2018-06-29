@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { Angular2TokenService } from 'angular2-token-ionic3';
+import { NavController, Events } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -8,10 +7,15 @@ import { Angular2TokenService } from 'angular2-token-ionic3';
 })
 export class HomePage {
 
+  currentUser: any;
+
   constructor(
     public navCtrl: NavController,
-    public tokenService: Angular2TokenService
-  ) {
-  }
+    private event: Events
 
+  ) {
+    this.event.subscribe('userLoggedIn?', (user) => {
+      this.currentUser = user;
+    })
+  }
 }

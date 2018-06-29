@@ -7,12 +7,15 @@
 
   <ion-content>
     <ion-list>
-      <button ion-item (click)="login('facebook')">
+      <button ion-item (click)="login('facebook')" *ngIf="!currentUser">
 	     <ion-icon name="logo-facebook" item-left></ion-icon>
 	      Login with Facebook
 		  </button>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
+      </button>
+      <button ion-item (click)="logout()" *ngIf="currentUser">
+        Logout {{currentUser.email}}
       </button>
     </ion-list>
   </ion-content>

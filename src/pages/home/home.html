@@ -14,10 +14,16 @@
     Testing
   </p>
 
-  <div *ngIf="tokenService.currentUserData != null; else elsetag">
+  <div *ngIf="this.currentUser">
+    <p>
+      {{this.currentUser.email}}
+    </p>
+  </div>
+
+  <!-- <div *ngIf="_tokenService.currentUserData != null; else elsetag">
     <p>
       <b>Email:</b> {{_tokenService.currentUserData?.email}} </p>
-  </div>
+  </div> -->
 
 
   <button ion-button secondary menuToggle>Toggle Menu</button>

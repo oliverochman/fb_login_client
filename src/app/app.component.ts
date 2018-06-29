@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Angular2TokenService } from 'angular2-token-ionic3';
@@ -15,11 +15,13 @@ export class MyApp {
   rootPage: any = HomePage;
 
   pages: Array<{ title: string, component: any }>;
+  currentUser: any;
 
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    private _tokenService: Angular2TokenService
+    private _tokenService: Angular2TokenService,
+    private event: Events
   ) { }
   ngOnInit() {
     this._tokenService.init({
@@ -57,9 +59,24 @@ export class MyApp {
     this._tokenService.signInOAuth(
       provider
     ).subscribe(
-      res => console.log(res),
+      res => {
+        (this.currentUser = res);
+        this.event.publish('userLoggedIn?', this.currentUser)
+      } ,
       error => console.log(error)
     );
-    this._tokenService.processOAuthCallback();
   }
+
+  logout() {
+    this._tokenService
+      .signOut()
+      .subscribe( res => {
+        this.currentUser = undefined;
+        console.log(res)
+        this.event.publish('userLoggedIn?', this.currentUser)
+      },
+      err => console.error('error'));
+  }
+
+
 }
